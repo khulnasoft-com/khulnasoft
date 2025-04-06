@@ -1,0 +1,22 @@
+---
+name: autofix.ci
+on: pull_request
+permissions: {}
+jobs:
+  autofix:
+    runs-on: ubuntu-24.04
+    permissions: {}
+    timeout-minutes: 15
+    steps:
+      - uses: suzuki-shunsuke/go-autofix-action@13021ffe2dd68264a74ff8b11d3a16e19ddcc7a5 # v0.1.5
+        with:
+          khulnasoft_version: v2.48.1
+      - run: khulnasoft upc -prune
+        working-directory: pkg/cosign
+      - run: khulnasoft upc -prune
+        working-directory: pkg/slsa
+      - run: khulnasoft upc -prune
+        working-directory: pkg/minisign
+      - run: khulnasoft upc -prune
+        working-directory: pkg/ghattestation
+      - uses: suzuki-shunsuke/autofixci-action@a148ca710fd8bf5d9959d5d7604018ce8a77bad0 # v1.3.2-1

@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/khulnasoft-com/khulnasoft/main/json-schema/khulnasoft-yaml.json
+# khulnasoft - Declarative CLI Version Manager
+# https://khulnasoft-com.github.io/
+# checksum:
+#   enabled: true
+#   require_checksum: true
+#   supported_envs:
+#   - all
+registries:
+- type: standard
+  ref: v4.338.0  # renovate: depName=khulnasoft-com/khulnasoft-registry
+packages:
+- name: hashicorp/terraform
+  version_expr: |
+    readYAML('version.yaml').version

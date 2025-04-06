@@ -1,0 +1,20 @@
+---
+# khulnasoft - Declarative CLI Version Manager
+# https://khulnasoft-com.github.io/
+# checksum:
+#   enabled: true
+#   require_checksum: true
+#   supported_envs:
+#   - all
+registries:
+- type: standard
+  ref: v4.60.0 # renovate: depName=khulnasoft-com/khulnasoft-registry
+packages:
+  - name: suzuki-shunsuke/tfcmt@v4.6.0
+  - import: ci-info.yaml
+  - import: imports/*.yaml
+  - name: golang/go
+    go_version_file: go.mod
+  - name: hashicorp/terraform
+    version_expr: readFile(".terraform-version")
+    version_expr_prefix: v

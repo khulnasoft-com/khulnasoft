@@ -1,71 +1,227 @@
 ---
+version: 2
 project_name: khulnasoft
+
 archives:
-- name_template: "{{.ProjectName}}_{{.Os}}_{{.Arch}}"
+  - name_template: "{{.ProjectName}}_{{.Os}}_{{.Arch}}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
 builds:
-- binary: khulnasoft
-  main: cmd/khulnasoft/main.go
-  env:
-  - CGO_ENABLED=0
-  goos:
-  - windows
-  - darwin
-  - linux
-  goarch:
-  - amd64
-  - arm64
+  - binary: khulnasoft
+    main: cmd/khulnasoft/main.go
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
 release:
   prerelease: true
   header: |
-    [Pull Requests](https://github.com/khulnasoftproj/khulnasoft/pulls?q=is%3Apr+milestone%3A{{.Tag}}) | [Issues](https://github.com/khulnasoftproj/khulnasoft/issues?q=is%3Aissue+milestone%3A{{.Tag}}) | https://github.com/khulnasoftproj/khulnasoft/compare/{{.PreviousTag}}...{{.Tag}}
+    [Pull Requests](https://github.com/khulnasoft-com/khulnasoft/pulls?q=is%3Apr+milestone%3A{{.Tag}}) | [Issues](https://github.com/khulnasoft-com/khulnasoft/issues?q=is%3Aissue+milestone%3A{{.Tag}}) | https://github.com/khulnasoft-com/khulnasoft/compare/{{.PreviousTag}}...{{.Tag}}
+
 signs:
-- cmd: cosign
-  artifacts: checksum
-  signature: ${artifact}.sig
-  certificate: ${artifact}.pem
-  output: true
-  env:
-  - COSIGN_EXPERIMENTAL=1
-  args:
-  - sign-blob
-  - --output-signature
-  - ${signature}
-  - --output-certificate
-  - ${certificate}
-  - --oidc-provider
-  - github
-  - ${artifact}
+  - cmd: cosign
+    artifacts: checksum
+    signature: ${artifact}.sig
+    certificate: ${artifact}.pem
+    output: true
+    args:
+      - sign-blob
+      - "-y"
+      - --output-signature
+      - ${signature}
+      - --output-certificate
+      - ${certificate}
+      - --oidc-provider
+      - github
+      - ${artifact}
+
 brews:
--
-  # NOTE: make sure the url_template, the token and given repo (github or gitlab) owner and name are from the
-  # same kind. We will probably unify this in the next major version like it is done with scoop.
+  -
+    # NOTE: make sure the url_template, the token and given repo (github or gitlab) owner and name are from the
+    # same kind. We will probably unify this in the next major version like it is done with scoop.
 
-  # GitHub/GitLab repository to push the formula to
-  repository:
-    owner: khulnasoftproj
-    name: homebrew-khulnasoft
-    token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-  # The project name and current git tag are used in the format string.
-  commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
-  # Your app's homepage.
-  # Default is empty.
-  homepage: https://github.com/khulnasoftproj/khulnasoft
+    # GitHub/GitLab repository to push the formula to
+    repository:
+      owner: khulnasoft-com
+      name: homebrew-khulnasoft
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    # The project name and current git tag are used in the format string.
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    # Your app's homepage.
+    # Default is empty.
+    homepage: https://github.com/khulnasoft-com/khulnasoft
 
-  # Template of your app's description.
-  # Default is empty.
-  description: |
-    Declarative CLI Version manager. Support Lazy Install and Sharable configuration mechanism named Registry. Switch versions seamlessly
-  license: MIT
+    # Template of your app's description.
+    # Default is empty.
+    description: |
+      Declarative CLI Version manager. Support Lazy Install and Sharable configuration mechanism named Registry. Switch versions seamlessly
+    license: MIT
 
-  # Setting this will prevent goreleaser to actually try to commit the updated
-  # formula - instead, the formula file will be stored on the dist folder only,
-  # leaving the responsibility of publishing it to the user.
-  # If set to auto, the release will not be uploaded to the homebrew tap
-  # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
-  # Default is false.
-  skip_upload: auto
+    # Setting this will prevent goreleaser to actually try to commit the updated
+    # formula - instead, the formula file will be stored on the dist folder only,
+    # leaving the responsibility of publishing it to the user.
+    # If set to auto, the release will not be uploaded to the homebrew tap
+    # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
+    # Default is false.
+    skip_upload: auto
 
-  # So you can `brew test` your formula.
-  # Default is empty.
-  test: |
-    system "#{bin}/khulnasoft --version"
+    # So you can `brew test` your formula.
+    # Default is empty.
+    test: |
+      system "#{bin}/khulnasoft --version"
+
+    # Additional install instructions so you don't need to override `install`.
+    #
+    # Template: allowed
+    # Since: v1.20
+    extra_install: |
+      generate_completions_from_executable(bin/"khulnasoft", "completion", shells: [:bash, :zsh, :fish])
+
+scoops:
+  -
+    description: |
+      Declarative CLI Version manager written in Go.
+      Support Lazy Install, Registry, and continuous update by Renovate.
+      CLI version is switched seamlessly
+    license: MIT
+    skip_upload: auto
+    repository:
+      owner: khulnasoft-com
+      name: scoop-bucket
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+
+winget:
+  - publisher: khulnasoft-com
+    short_description: Declarative CLI Version manager written in Go
+    license: mit
+
+    # Publisher URL.
+    #
+    # Templates: allowed
+    # publisher_url: https://goreleaser.com
+
+    publisher_support_url: https://github.com/khulnasoft-com/khulnasoft/discussions
+
+    # GOAMD64 to specify which amd64 version to use if there are multiple
+    # versions from the build section.
+    #
+    # Default: v1
+    # goamd64: v1
+
+    # URL which is determined by the given Token (github, gitlab or gitea).
+    #
+    # Default depends on the client.
+    # Templates: allowed
+    url_template: "https://github.com/khulnasoft-com/khulnasoft/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+
+    # Git author used to commit to the repository.
+    # commit_author:
+    #   name: Shunsuke Suzuki
+    #   email: suzuki.shunsuke.1989@gmail.com
+
+    # The project name and current git tag are used in the format string.
+    #
+    # Templates: allowed
+    # commit_msg_template: "{{ .PackageIdentifier }}: {{ .Tag }}"
+
+    # Path for the file inside the repository.
+    #
+    # Default: manifests/<lowercased first char of publisher>/<publisher>/<version>
+    # path: manifests/g/goreleaser/1.19
+
+    homepage: https://github.com/khulnasoft-com/khulnasoft
+
+    # Your app's long description.
+    #
+    # Templates: allowed
+    description: |
+      Declarative CLI Version manager written in Go.
+      Support Lazy Install, Registry, and continuous update by Renovate.
+      CLI version is switched seamlessly
+
+    # License URL.
+    #
+    # Templates: allowed
+    license_url: https://github.com/khulnasoft-com/khulnasoft/blob/main/LICENSE
+
+    # Copyright.
+    #
+    # Templates: allowed
+    # copyright: ""
+
+    # Copyright URL.
+    #
+    # Templates: allowed
+    # copyright_url: ""
+
+    # Setting this will prevent goreleaser to actually try to commit the updated
+    # package - instead, it will be stored on the dist folder only,
+    # leaving the responsibility of publishing it to the user.
+    #
+    # If set to auto, the release will not be uploaded to the repository
+    # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
+    #
+    # Templates: allowed
+    skip_upload: "auto"
+
+    # Release notes.
+    #
+    # If you want to use the release notes generated by GoReleaser, use
+    # `{{.Changelog}}` as the value.
+    #
+    # Templates: allowed
+    # release_notes: "{{.Changelog}}"
+
+    # Release notes URL.
+    #
+    # Templates: allowed
+    release_notes_url: https://github.com/khulnasoft-com/khulnasoft/releases/tag/{{.Tag}}
+
+    # Tags.
+    # tags:
+    #   -
+
+    # Repository to push the generated files to.
+    repository:
+      owner: suzuki-shunsuke
+      # owner: mini-core
+      name: winget-pkgs
+
+      token: "{{ .Env.WINGET_GITHUB_TOKEN }}"
+
+      # Optionally a branch can be provided.
+      #
+      # Default: default repository branch
+      # Templates: allowed
+      branch: "khulnasoft-{{.Version}}"
+
+      # Sets up pull request creation instead of just pushing to the given branch.
+      # Make sure the 'branch' property is different from base before enabling
+      # it.
+      #
+      # Since: v1.17
+      pull_request:
+        # Whether to enable it or not.
+        enabled: true
+
+        # Whether to open the PR as a draft or not.
+        #
+        # Since: v1.19
+        draft: true
+
+        # Base can also be another repository, in which case the owner and name
+        # above will be used as HEAD, allowing cross-repository pull requests.
+        #
+        # Since: v1.19
+        base:
+          owner: microsoft
+          # owner: mini-core
+          name: winget-pkgs
