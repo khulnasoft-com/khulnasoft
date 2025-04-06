@@ -1,25 +1,94 @@
-#
+<a href="https://www.khulnasoft.com">
+  <img width="1500" alt="Khulnasoft banner image" src="https://github.com/khulnasoft-com/khulnasoft/assets/55068936/ff393a65-a4f3-4997-a066-10337562cc34">
+</a>
 
-[![Build Status](https://github.com/khulnasoftproj/khulnasoft/workflows/test/badge.svg)](https://github.com/khulnasoftproj/khulnasoft/actions)
-[![GitHub last commit](https://img.shields.io/github/last-commit/khulnasoftproj/khulnasoft.svg)](https://github.com/khulnasoftproj/khulnasoft)
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/khulnasoftproj/khulnasoft/main/LICENSE)
+<br>
+<br>
 
-[Document](https://khulnasoftproj.github.io/) | [Contributing](CONTRIBUTING.md) | [Logo](logo)
 
-Declarative CLI Version Manager written in Go.
 
-- Switch tool versions per project
-- Unify tool versions and how to install in your teams and CI
-- Continuous update by Renovate
-- Lazy Install
-- Ecosystem by Registry
-- Secure
-- Easy to use
+<div align="center" style="flex-direction: row;">
+  <a href="https://www.khulnasoft.com#gh-light-mode-only">
+    <img src="https://github.com/khulnasoft-com/khulnasoft/assets/55068936/01a00b23-e1f5-4650-a629-89db8e300708" style="width: 256px">
+  </a>
+  <a href="https://www.khulnasoft.com#gh-dark-mode-only">
+    <img src="https://github.com/khulnasoft-com/khulnasoft/assets/55068936/ff437ec6-adda-4814-9e92-fff44cfd00ad" style="width: 256px">
+  </a>
+</div>
 
-[![Star History Chart](https://api.star-history.com/svg?repos=khulnasoftproj/khulnasoft&type=Date)](https://star-history.com/#khulnasoftproj/khulnasoft&Date)
 
-## License
+[Khulnasoft](https://www.khulnasoft.com)’s developer platform provides on-demand, pre-configured environments that automatically integrate into any tool, library, or dependency required for creating software. Khulnasoft workspaces are the fastest and most secure way to ship software and are as easy as adding a `.khulnasoft.yml` file to the root of any repository.
 
-[MIT](LICENSE)
+📄 [Read Cloud Development Environment white paper](https://www.khulnasoft.com/whitepaper/cde)
 
-About the license of logo, please see [here](logo/README.md#license).
+
+<div align="center" style="flex-direction: row;">
+  <a href="https://www.khulnasoft.com#gh-light-mode-only">
+    <img src="https://github.com/khulnasoft-com/khulnasoft/assets/55068936/84beb5da-fa5b-4966-a454-8f5b2607a8ed">
+  </a>
+  <a href="https://www.khulnasoft.com#gh-dark-mode-only">
+    <img src="https://github.com/khulnasoft-com/khulnasoft/assets/55068936/3912a60a-65a9-45f2-b151-93621ac8bf53">
+  </a>
+</div>
+
+
+## Features
+
+- **Dev environments as code** - Khulnasoft is like infrastructure-as-code, but for your development environment. Khulnasoft defines your editor extensions and requires dependencies in a declarative [`.khulnasoft.yml` configuration](https://www.khulnasoft.com/docs/introduction/khulnasoft-tutorial/2-configure-your-khulnasoft-yml). Spinning up dev environments is easily repeatable and reproducible empowering you to automate, version-control, and share dev environments across your team.
+- [**Prebuilt dev environments**](https://www.khulnasoft.com/docs/configure/projects/prebuilds) - Khulnasoft continuously prebuilds all your git branches similar to a CI server. Control how Khulnasoft pre-configures and initializes environments before you even start a workspace through tasks commands in your .khulnasoft.yml. No more watching apt-get or npm install again. 
+- [**Secure**](https://www.khulnasoft.com/security) - Each Khulnasoft workspace or prebuild runs on a secured single-use container providing fast startup times without compromising on security. Khulnasoft generates SLSA level 1 compliant provenance. Khulnasoft is also GDPR and SOC2 compliant. And, of course, Khulnasoft is open-source and available for review by everyone.
+- **Workspaces based on Docker** - Khulnasoft instantly starts a container in the cloud based on an (optional) [Docker image](https://www.khulnasoft.com/docs/config-docker/). If you’re already using Docker, you can easily re-use your Docker file. 
+- **GitLab, GitHub, Bitbucket and Azure DevOps integration** - Khulnasoft seamlessly [integrates](https://www.khulnasoft.com/docs/configure/authentication) into your workflow and works with all major Git hosting platforms including GitHub, GitLab, Bitbucket, and Azure DevOps.
+- **Integrated code reviews** - with Khulnasoft you can do native code reviews on any PR/MR. No need to switch contexts anymore and clutter your local machine with your colleagues' PR/MR.
+- **Collaboration** - invite team members to your dev environment or snapshot of any state of your dev environment to share it with your team asynchronously.
+**Professional & customizable developer experience** - a Khulnasoft workspace gives you the same capabilities as your Linux machine - pre-configured and optimized for your development workflow. Install any [VS Code extension](https://www.khulnasoft.com/docs/references/ides-and-editors/vscode-extensions) with one click on a user and/or team level. You can also bring your [dotfiles](https://www.khulnasoft.com/docs/configure/user-settings/dotfiles#dotfiles) and customize your dev environment as you like.
+
+
+## Getting Started
+
+- **Browser**: 
+    - Using Khulnasoft dashboard [khulnasoft.com/new](https://khulnasoft.com/new).
+    - Add `khulnasoft.com/# `as a prefix to any of your GitHub/ GitLab/ Bitbucket repository, like [this](https://khulnasoft.com/#https://github.com/khulnasoft-com/template-typescript-react)
+- **CLI**: You can also [install the Khulnasoft CLI](https://www.khulnasoft.com/docs/references/khulnasoft-cli#installation) and create your first workspace directly from your terminal :)
+
+
+## Documentation
+
+All documentation can be found on [www.khulnasoft.com/docs](https://www.khulnasoft.com/docs). For example, see [Khulnasoft tutorial](https://www.khulnasoft.com/docs/introduction/khulnasoft-tutorial) and check the following helpful resources:
+  - [Workspace Lifecycle](https://www.khulnasoft.com/docs/configure/workspaces/workspace-lifecycle)
+  - [Configure repositories](https://www.khulnasoft.com/docs/configure/repositories)
+  - [Organizations](https://www.khulnasoft.com/docs/configure/orgs)
+  - [IDE & Editors support](https://www.khulnasoft.com/docs/references/ides-and-editors)
+  - [Video screencasts](https://www.khulnasoft.com/screencasts)
+  - [Khulnasoft samples](https://github.com/khulnasoft-samples)
+
+
+## Questions
+
+For questions and support please use [Khulnasoft community Discord](https://www.khulnasoft.com/chat). Join the conversation, and connect with other community members. 💬
+You can also follow [@khulnasoft](https://twitter.com/khulnasoft) for announcements and updates from our team.
+
+For enterprise deployment and customized solutions, please explore our [**Enterprise offerings**](https://www.khulnasoft.com/contact/enterprise-self-serve) to get started with a setup that meets your organization's needs.
+
+
+## Issues
+
+The issue tracker is used for tracking bug reports and feature requests for the Khulnasoft open source project as well as planning current and future development efforts. 🗺️
+
+You can upvote popular feature requests or create a new one.
+
+
+## Related Projects
+
+During the development of Khulnasoft, we also developed some of our infrastructure toolings to make development easier and more efficient. To this end, we've developed many open-source projects including:
+- [Workspace images](https://github.com/khulnasoft-com/workspace-images): Ready to use docker images for Khulnasoft workspaces
+- [OpenVSCode Server](https://github.com/khulnasoft-com/openvscode-server): Run the latest VS Code on a remote machine accessed through a browser
+- [Khulnasoft browser extension](https://github.com/khulnasoft-com/browser-extension): It adds a Khulnasoft button to the configured GitLab, GitHub, Bitbucket and Azure DevOps installations
+- [Blazedock](https://github.com/khulnasoft/blazedock) - A heavily caching build system
+- [Dazzle](https://github.com/khulnasoft-com/dazzle) - An experimental Docker image builder
+- [Werft](https://github.com/csweichel/werft) - A Kubernetes native CI system
+
+## Code of Conduct
+
+We want to create a welcoming environment for everyone interested in contributing to Khulnasoft or participating in discussions with the Khulnasoft community.
+This project has adopted the [Contributor Covenant Code of Conduct](https://github.com/khulnasoft-com/.github/blob/main/CODE_OF_CONDUCT.md), [version 2.0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).

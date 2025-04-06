@@ -1,0 +1,150 @@
+<!--
+ Copyright (c) 2021 Khulnasoft GmbH. All rights reserved.
+ Licensed under the GNU Affero General Public License (AGPL).
+ See License.AGPL.txt in the project root for license information.
+-->
+<!--suppress PluginXmlValidity -->
+<idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="/META-INF/extensions.xml" xpointer="xpointer(/idea-plugin/*)"/>
+
+    <id>io.khulnasoft.jetbrains.remote</id>
+    <name>Khulnasoft Remote</name>
+    <vendor>Khulnasoft</vendor>
+    <description>Provides integrations within a Khulnasoft workspace.</description>
+
+    <!-- Product and plugin compatibility requirements -->
+    <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <!-- Use old formatting to resolve class not found exception -->
+    <!-- https://plugins.jetbrains.com/docs/intellij/plugin-dependencies.html#3-dependency-declaration-in-pluginxml -->
+    <depends>com.jetbrains.codeWithMe</depends>
+    <depends>org.jetbrains.plugins.terminal</depends>
+    <depends optional="true" config-file="maven.xml">org.jetbrains.idea.maven</depends>
+    <dependencies>
+        <plugin id="Git4Idea"/>
+        <plugin id="org.jetbrains.plugins.terminal"/>
+        <plugin id="com.jetbrains.codeWithMe"/>
+    </dependencies>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="io.khulnasoft.jetbrains.remote.services.HeartbeatService"
+                            preload="true"/>
+        <applicationService serviceImplementation="io.khulnasoft.jetbrains.remote.KhulnasoftManager" preload="true"/>
+
+        <projectService serviceImplementation="io.khulnasoft.jetbrains.remote.internal.KhulnasoftTerminalServiceImpl" client="controller"
+                        preload="true"/>
+
+        <notificationGroup id="Khulnasoft Notifications" displayType="BALLOON" isLogByDefault="false"/>
+
+        <httpRequestHandler implementation="io.khulnasoft.jetbrains.remote.KhulnasoftCLIService"/>
+
+        <gateway.customization.name
+                implementation="io.khulnasoft.jetbrains.remote.KhulnasoftGatewayClientCustomizationProvider"/>
+        <gateway.customization.metrics id="khulnasoftMetricsProvider"
+                                       implementation="io.khulnasoft.jetbrains.remote.KhulnasoftMetricProvider"/>
+
+        <registryKey key="khulnasoft.forceUpdateMavenProjects.disabled" defaultValue="false"
+                     description="Disable the forced update of Maven projects when IDE opens."
+                     restartRequired="true"/>
+
+
+        <applicationService serviceInterface="io.khulnasoft.jetbrains.remote.KhulnasoftIgnoredPortsForNotificationService"
+                            serviceImplementation="io.khulnasoft.jetbrains.remote.internal.KhulnasoftIgnoredPortsForNotificationServiceImpl"
+                            preload="true"/>
+
+
+        <applicationService serviceInterface="io.khulnasoft.jetbrains.remote.KhulnasoftPortForwardingService"
+                            serviceImplementation="io.khulnasoft.jetbrains.remote.KhulnasoftPortForwardingServiceImpl"
+                            client="controller" preload="true"/>
+        <gateway.customization.performance id="khulnasoftMetricsControl" order="before cpuControl"
+                                           implementation="io.khulnasoft.jetbrains.remote.KhulnasoftMetricControlProvider"/>
+    </extensions>
+
+    <actions>
+        <action id="io.khulnasoft.jetbrains.remote.actions.StopWorkspaceAction"
+                class="io.khulnasoft.jetbrains.remote.actions.StopWorkspaceAction"
+                text="Khulnasoft: Stop Workspace"
+                icon="AllIcons.Actions.Pause">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.DashboardAction"
+                class="io.khulnasoft.jetbrains.remote.actions.DashboardAction"
+                text="Khulnasoft: Open Dashboard"
+                icon="AllIcons.General.ProjectTab">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.ExtendWorkspaceTimeoutAction"
+                class="io.khulnasoft.jetbrains.remote.actions.ExtendWorkspaceTimeoutAction"
+                text="Khulnasoft: Extend Workspace Timeout"
+                icon="AllIcons.Vcs.History">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.ContextAction"
+                class="io.khulnasoft.jetbrains.remote.actions.ContextAction"
+                text="Khulnasoft: Open Context"
+                icon="AllIcons.General.FitContent">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.SettingsAction"
+                class="io.khulnasoft.jetbrains.remote.actions.SettingsAction"
+                text="Khulnasoft: Open Settings"
+                icon="AllIcons.General.Settings">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.ShareWorkspaceSnapshotAction"
+                class="io.khulnasoft.jetbrains.remote.actions.ShareWorkspaceSnapshotAction"
+                text="Khulnasoft: Share Workspace Snapshot"
+                icon="AllIcons.Actions.Dump">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.AccessControlAction"
+                class="io.khulnasoft.jetbrains.remote.actions.AccessControlAction"
+                text="Khulnasoft: Open Access Control"
+                icon="AllIcons.Actions.Properties">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.DocumentationAction"
+                class="io.khulnasoft.jetbrains.remote.actions.DocumentationAction"
+                text="Khulnasoft: Documentation"
+                icon="AllIcons.General.ReaderMode">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.UpgradeSubscriptionAction"
+                class="io.khulnasoft.jetbrains.remote.actions.UpgradeSubscriptionAction"
+                text="Khulnasoft: Upgrade Subscription"
+                icon="AllIcons.Actions.PreviousOccurence">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.CommunityChatAction"
+                class="io.khulnasoft.jetbrains.remote.actions.CommunityChatAction"
+                text="Khulnasoft: Open Community Chat"
+                icon="AllIcons.General.Balloon">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.ReportIssueAction"
+                class="io.khulnasoft.jetbrains.remote.actions.ReportIssueAction"
+                text="Khulnasoft: Report Issue"
+                icon="AllIcons.General.ShowWarning">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.FollowUsOnTwitterAction"
+                class="io.khulnasoft.jetbrains.remote.actions.FollowUsOnTwitterAction"
+                text="Khulnasoft: Follow Us On Twitter"
+                icon="AllIcons.Gutter.ExtAnnotation">
+            <add-to-group group-id="UnattendedHostDropdownGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.KhulnasoftCopyUrlAction"
+                class="io.khulnasoft.jetbrains.remote.actions.KhulnasoftCopyUrlAction"
+                text="Copy URL"
+                icon="AllIcons.Actions.Copy">
+            <add-to-group group-id="PortForwardingPortGroup" anchor="last"/>
+        </action>
+        <action id="io.khulnasoft.jetbrains.remote.actions.KhulnasoftCopyWebUrlAction"
+                class="io.khulnasoft.jetbrains.remote.actions.KhulnasoftCopyWebUrlAction"
+                text="Copy Web URL"
+                icon="AllIcons.Actions.Copy">
+            <add-to-group group-id="PortForwardingPortGroup" anchor="last"/>
+            <add-to-group group-id="PortForwardingSuggestionGroup" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>

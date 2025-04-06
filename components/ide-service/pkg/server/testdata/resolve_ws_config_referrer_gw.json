@@ -1,0 +1,4 @@
+{
+  "context": "{\"isFile\":false,\"path\":\"\",\"title\":\"khulnasoft-com/empty \",\"revision\":\"\",\"repository\":{\"cloneUrl\":\"https://github.com/khulnasoft-com/empty.git\",\"host\":\"github.com\",\"name\":\"empty\",\"owner\":\"khulnasoft-com\",\"private\":false},\"normalizedContextURL\":\"https://github.com/khulnasoft-com/empty\",\"checkoutLocation\":\"empty\",\"referrer\":\"jetbrains-gateway\"}",
+  "workspace_config": "{\"ports\":[],\"tasks\":[],\"image\":\"docker.io/khulnasoft/workspace-full:latest\",\"_origin\":\"default\"}"
+}

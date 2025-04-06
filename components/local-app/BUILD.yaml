@@ -1,0 +1,52 @@
+packages:
+  # remaining packages are added by the BUILD.js generator
+  - name: docker
+    type: docker
+    deps:
+      - :app-with-manifest
+    argdeps:
+      - imageRepoBase
+    config:
+      buildArgs:
+        VERSION: ${version}
+      dockerfile: blazedock.Dockerfile
+      image:
+        - ${imageRepoBase}/local-app:${version}
+        - ${imageRepoBase}/local-app:commit-${__git_commit}
+  - name: update-manifest
+    type: go
+    srcs:
+      - go.mod
+      - go.sum
+      - "**/*.go"
+      - version.txt
+    deps:
+      - components/supervisor-api/go:lib
+      - components/khulnasoft-protocol/go:lib
+      - components/local-app-api/go:lib
+      - components/public-api/go:lib
+    config:
+      packaging: app
+      dontTest: true
+      buildCommand: ["go", "build", "-o", "update-manifest", "./main/update-manifest/main.go"]
+  - name: app-with-manifest
+    type: generic
+    deps:
+      - :app
+      - :update-manifest
+    config:
+      commands:
+        - ["sh", "-c", "mkdir -p bin && mv components-local-app--app/bin/* bin/"]
+        - ["sh", "-c", "components-local-app--update-manifest/update-manifest --cwd bin | tee bin/manifest.json"]
+        - ["rm", "-rf", "components-local-app--update-manifest", "components-local-app--app"]
+scripts:
+  - name: install-cli
+    description: "Install khulnasoft-cli as `khulnasoft` command and add auto-completion. Usage: '. $(blazedock run components/local-app:install-cli)'"
+    script: |
+      go build -o khulnasoft ./main/khulnasoft-cli
+      sudo mv khulnasoft /usr/bin/khulnasoft
+      sudo chmod +x /usr/bin/khulnasoft
+  - name: cli-completion
+    description: "Add completion of khulnasoft-cli to bash-completion. Usage: '. $(blazedock run components/local-app:cli-completion)'"
+    script: |
+      sudo /usr/bin/khulnasoft completion bash | sudo tee /usr/share/bash-completion/completions/khulnasoft > /dev/null

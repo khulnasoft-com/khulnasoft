@@ -1,0 +1,14 @@
+{
+    "Resp": {
+        "envvars": [
+            {
+                "name": "KHULNASOFT_IDE_ALIAS",
+                "value": "code"
+            }
+        ],
+        "supervisor_image": "docker.io/khulnasoft/core-dev/build/supervisor:commit-ff38b98b7dde4929159bcaeec68d178898dc2139",
+        "web_image": "docker.io/khulnasoft/core-dev/build/ide/code:commit-d86f6aa033943c9650d06339915e68063b0cf142",
+        "ide_settings": "{\"defaultIde\":\"code\"}\n"
+    },
+    "Err": ""
+}
