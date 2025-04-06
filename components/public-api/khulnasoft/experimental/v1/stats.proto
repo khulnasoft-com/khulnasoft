@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package khulnasoft.experimental.v1;
+
+option go_package = "github.com/khulnasoft-com/khulnasoft/components/public-api/go/experimental/v1";
+option java_package = "io.khulnasoft.publicapi.experimental.v1";
+
+service StatsService {
+  // Retrieves the current user stats
+  rpc GetUserStats(GetUserStatsRequest) returns (GetUserStatsResponse) {}
+}
+
+message GetUserStatsRequest {}
+
+message GetUserStatsResponse {
+  // All users that have an active Khulnasoft (not deleted) account at the time of asking.
+  uint32 registered_users = 1;
+}

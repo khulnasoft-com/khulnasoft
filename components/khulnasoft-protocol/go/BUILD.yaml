@@ -1,0 +1,21 @@
+packages:
+  - name: lib
+    type: go
+    srcs:
+      - "scripts/generate-config.sh"
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+      - "*.sh"
+    deps:
+      - components/khulnasoft-protocol:khulnasoft-schema
+      - dev/addlicense:app
+    env:
+      - CGO_ENABLED=0
+      - GOOS=linux
+      - BLAZEDOCK_BUILD=true
+    prep:
+      - ["./scripts/generate-config.sh"]
+    config:
+      packaging: library
+      buildCommand: ["go", "build", "-trimpath", "-ldflags=-buildid="]

@@ -1,0 +1,131 @@
+#
+# Changes to the CODEONWERS file have to get reviewed by Engineering Leadership.
+#
+/.github/CODEOWNERS @khulnasoft-com/engineering-leadership
+
+/components/blobserve @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/common-go @khulnasoft-com/engineering-staff-engineers @khulnasoft-com/team-enterprise
+/components/components/scrubber @khulnasoft-com/engineering-staff-engineers @khulnasoft-com/team-enterprise
+/components/content-service-api @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/content-service @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/dashboard @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/docker-up @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/ee/agent-smith @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/khulnasoft-cli @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/khulnasoft-db @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/khulnasoft-protocol @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/khulnasoft-protocol/java @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/khulnasoft-protocol/src/typings/globals.ts @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ide @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ide-metrics @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ide-metrics-api @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ide-service @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ide-service-api @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ide-proxy @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/image-builder-api @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/image-builder-bob @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/image-builder-mk3 @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+# By default anything in in /install/installer is shared.
+/install/installer
+/install/installer/pkg/components/agent-smith @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/blobserve @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/components-ide @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/components-webapp @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/components-workspace @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/content-service @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/dashboard @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/ide-metrics @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/ide-service @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/ide-proxy @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/image-builder-mk3 @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/image-builder-mk3-wsman @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/openvsx-proxy @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/proxy @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/registry-facade @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/spicedb @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/public-api-server @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/server @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/server/ide @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/usage @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/usage-api @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/workspace @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/workspace/ide @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/ws-daemon @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/ws-manager-mk2 @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/ws-manager-bridge @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/ws-proxy @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/config/versions @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/local-app-api @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/local-app @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/openvsx-proxy @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/proxy @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/public-api @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+# Any team can make changes to the experimental package
+/components/ipfs/kubo @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ipfs/ipfs-cluster @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/public-api/khulnasoft/experimental @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/public-api-server @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/registry-facade-api @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/registry-facade @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/scheduler-extender @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/server @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/server/src/ide-service.* @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/service-waiter @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/supervisor-api/*.proto @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/supervisor @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/usage @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/usage-api @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/workspacekit @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/ws-daemon-api @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/ws-daemon @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/ws-manager-api @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/ws-manager-bridge-api @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ws-manager-bridge @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/components/ws-manager-mk2 @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/ws-proxy @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/components/node-labeler @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/install/installer/pkg/components/node-labeler @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/dev/gpctl @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/dev/gpctl/api/ @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/dev/loadgen @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+
+# Preview is shared between all teams.
+/dev/preview
+
+# Operations is shared between all teams
+/operations
+/operations/observability/mixins/IDE @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/operations/observability/mixins/meta @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/operations/observability/mixins/workspace @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+# a single review should be enough
+/operations/observability/mixins/cross-teams
+
+.github/workflows/ide-*.yml @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+.github/workflows/jetbrains-*.yml @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+.github/workflows/code-nightly.yml @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+.github/workflows/workspace-*.yml @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+
+#
+# Automation
+# The following files are updated automatically so we don't want to have a specific code-owner
+# A single review is enough. Usually the review will be done by RoboQuat but we don't want to add
+# that user as an owner in case we need to manually approve changes
+#
+/CHANGELOG.md
+/components/ide/jetbrains/backend-plugin/gradle-latest.properties
+/components/ide/jetbrains/gateway-plugin/gradle-latest.properties
+
+#
+# Add so that teams assert we're not breaking each other's integration tests
+/test/pkg/agent @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/test/pkg/integration @khulnasoft-com/team-experience @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/test/pkg/report @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/test/tests/workspace @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/test/tests/smoke-test @khulnasoft-com/team-experience @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/test/tests/ide @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/test/tests/components/content-service @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/test/tests/components/database @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/test/tests/components/image-builder @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise
+/test/tests/components/server @khulnasoft-com/team-experience @khulnasoft-com/team-enterprise
+/test/tests/components/ws-daemon @khulnasoft-com/team-engine @khulnasoft-com/team-enterprise

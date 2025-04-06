@@ -1,0 +1,49 @@
+packages:
+  - name: all
+    type: generic
+    deps:
+      - :lib
+      - components/khulnasoft-protocol/go:lib
+      - components/khulnasoft-protocol/java:lib
+  - name: lib
+    type: yarn
+    srcs:
+      - "data/*.json"
+      - "src/**"
+      - "test/**"
+      - .eslintrc
+      - mocha.opts
+      - package.json
+    config:
+      packaging: library
+      yarnLock: ${coreYarnLockBase}/yarn.lock
+      tsconfig: tsconfig.json
+      commands:
+        # blazedock executes the build and test step in the wrong order, so we need to call a special script that builds before testing
+        test: ["yarn", "test:blazedock"]
+  - name: khulnasoft-schema
+    type: generic
+    srcs:
+      - data/khulnasoft-schema.json
+    config:
+      commands:
+        - ["mv", "data/khulnasoft-schema.json", "khulnasoft-schema.json"]
+  - name: scripts
+    type: generic
+    srcs:
+      - "scripts/*"
+    config:
+      commands:
+        - ["sh", "-c", "mv scripts/* ."]
+  - name: publish
+    type: generic
+    env:
+      - DO_PUBLISH=${publishToNPM}
+    argdeps:
+      - npmPublishTrigger
+    deps:
+      - :lib
+      - :scripts
+    config:
+      commands:
+        - ["node", "components-khulnasoft-protocol--scripts/publish.js", "${version}", "components-khulnasoft-protocol--lib/package"]

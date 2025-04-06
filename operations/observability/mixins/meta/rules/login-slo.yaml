@@ -1,0 +1,113 @@
+# Copyright (c) 2022 Khulnasoft GmbH. All rights reserved.
+# Licensed under the GNU Affero General Public License (AGPL).
+# See License.AGPL.txt in the project root for license information.
+
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: k8s
+    role: alert-rules
+  name: login-slo-monitoring-rules
+spec:
+  groups:
+  - name: login-slo-recording-rules
+    rules:
+    - record: khulnasoft_server_login_requests_total:5m_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[5m]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[5m]))
+
+    - record: khulnasoft_server_login_requests_total:30m_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[30m]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[30m]))
+
+    - record: khulnasoft_server_login_requests_total:1h_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[1h]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[1h]))
+
+    - record: khulnasoft_server_login_requests_total:2h_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[2h]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[2h]))
+
+    - record: khulnasoft_server_login_requests_total:6h_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[6h]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[6h]))
+
+    - record: khulnasoft_server_login_requests_total:1d_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[1d]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[1d]))
+
+    - record: khulnasoft_server_login_requests_total:3d_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[3d]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[3d]))
+
+    - record: khulnasoft_server_login_requests_total:30d_failure_ratio
+      expr: |
+        sum(rate(khulnasoft_server_login_requests_total{status="failed"}[30d]))
+        /
+        sum(rate(khulnasoft_server_login_requests_total[30d]))
+
+    - record: khulnasoft_server_login_requests_total:slo_target
+      expr: "0.95"
+
+    - record: khulnasoft_server_login_requests_total:error_budget_remaining
+      expr: khulnasoft_server_login_requests_total:monthly_availability - khulnasoft_server_login_requests_total:slo_target
+
+    - record: khulnasoft_server_login_requests_total:monthly_availability
+      expr: 1 - khulnasoft_server_login_requests_total:30d_failure_ratio
+
+  - name: login-slo-alerts
+    rules:
+    - alert: KhulnasoftLoginErrorBudgetBurn
+      labels:
+        severity: critical
+      annotations:
+        runbook_url: https://github.com/khulnasoft-com/observability/blob/main/runbooks/KhulnasoftLoginErrorBudgetBurn.md
+        summary: Error budget is being burn too quickly.
+        description: Error budget is being burn too quickly. At this rate, the whole monthly budget will be burnt in less than 2 days.
+      expr: |
+        (
+          khulnasoft_server_login_requests_total:1h_failure_ratio > (14.4 * (1 - khulnasoft_server_login_requests_total:slo_target))
+          and
+          khulnasoft_server_login_requests_total:5m_failure_ratio > (14.4 * (1 - khulnasoft_server_login_requests_total:slo_target))
+        )
+        or
+        (
+          khulnasoft_server_login_requests_total:6h_failure_ratio > (6 * (1 - khulnasoft_server_login_requests_total:slo_target))
+          and
+          khulnasoft_server_login_requests_total:30m_failure_ratio > (6 * (1 - khulnasoft_server_login_requests_total:slo_target))
+        )
+
+    - alert: KhulnasoftLoginErrorBudgetBurn
+      labels:
+        severity: warning
+      annotations:
+        runbook_url: https://github.com/khulnasoft-com/observability/blob/main/runbooks/KhulnasoftLoginErrorBudgetBurn.md
+        summary: Error budget is being burn quickly.
+        description: Error budget is being burn quickly. At this rate, the whole monthly budget will be burnt in less than 10 days.
+      expr: |
+        (
+          khulnasoft_server_login_requests_total:1d_failure_ratio > (3 * (1 - khulnasoft_server_login_requests_total:slo_target))
+          and
+          khulnasoft_server_login_requests_total:2h_failure_ratio > (3 * (1 - khulnasoft_server_login_requests_total:slo_target))
+        )
+        or
+        (
+          khulnasoft_server_login_requests_total:3d_failure_ratio > (1 * (1 - khulnasoft_server_login_requests_total:slo_target))
+          and
+          khulnasoft_server_login_requests_total:6h_failure_ratio > (1 * (1 - khulnasoft_server_login_requests_total:slo_target))
+        )

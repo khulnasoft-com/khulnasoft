@@ -1,0 +1,19 @@
+name: Check khulnasoft.yaml changes
+on:
+  pull_request:
+    paths:
+      - ".khulnasoft.yml"
+      - ".github/workflows/check-khulnasoftyaml.yml"
+
+jobs:
+  notify:
+    name: Build and upload model
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify
+        uses: KeisukeYamashita/create-comment@v1
+        with:
+          number: ${{ github.event.pull_request.number }}
+          comment: |
+            :warning: Hey reviewer! BE CAREFUL :warning:
+            Review the code before opening in your Khulnasoft. `.khulnasoft.yml` was changed and it might be harmful.
